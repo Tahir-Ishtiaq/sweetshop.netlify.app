@@ -18,12 +18,12 @@ public class Sweets extends BaseClass{
     @FindBy(xpath = "//a[@href='/basket']")
     WebElement baskit;
 
-    public Basket clickOnItems(){
+    public <T extends BaseClass>T clickOnItems(Class<T> Class){
         clickOn(firstItem);
         checkText("1");
         clickOn(secondItem);
         checkText("2");
         clickOn(baskit);
-        return new Basket(driver);
+        return selectClass(Class);
     }
 }

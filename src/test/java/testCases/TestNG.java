@@ -13,11 +13,12 @@ public class TestNG extends BeforeTest{
     WebDriver driver;
     private static final Logger logger =
             LoggerFactory.getLogger(TestNG.class);
+
     @Test
     public void AddAndCheck(){
         try{
             logger.info("Starting Testcase1 !!");
-            home.clickOnOption(Sweets.class).clickOnItems();
+            home.clickOnOption(Sweets.class).clickOnItems(Basket.class);
             logger.info("Testcase1 successfully Passed !!");
         }catch (Exception e){
             logger.error("TestCase1 FAILED!!", e);
@@ -27,6 +28,24 @@ public class TestNG extends BeforeTest{
 
     @Test
     public void OrderTheChocolate(){
-        home.clickOnAnyItem(Basket.class).placeOrder("Tahir", "Ishtiaq","user@test.com", "123 Street", "90210", "Tahir", "4000000000000000", "05/29", "999", "Thank you!");
+        try{
+            logger.info("Starting Testcase2 !!");
+            home.clickOnAnyItem(Basket.class).placeOrder("Tahir", "Ishtiaq","user@test.com", "123 Street", "90210", "Tahir", "4000000000000000", "05/29", "999", "Thank you!");
+            logger.info("Testcase2 Successfully Passed !!");
+        } catch (Exception e){
+            logger.error("TestCase2 FAILED!!", e);
+        }
+
+    }
+
+    @Test
+    public void AddAndRemove(){
+        try{
+            logger.info("Starting Testcase3 !!");
+            home.clickOnOption(Sweets.class).clickOnItems(Basket.class).EmptyCart();
+            logger.info("Testcase3 Successfully Passed !!");
+        }catch (Exception e){
+            logger.error("TextCase3 FAILED !!", e);
+        }
     }
 }

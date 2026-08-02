@@ -39,7 +39,8 @@ public class Basket extends BaseClass{
     @FindBy(xpath = "//button[text()='Confirm Order']")
     WebElement ConfirmOrder;
 
-
+    @FindBy(xpath = "//a[@onclick='emptyBasket();']")
+    WebElement emptyBasket;
 
     public void placeOrder(String fName, String lName,String email, String address, String zip, String ccName, String ccNumber, String ccExpiration, String ccCvv, String text){
         String[] fields = {"email","address","zip","cc-name","cc-number","cc-expiration","cc-cvv"};
@@ -55,6 +56,11 @@ public class Basket extends BaseClass{
         inputValue(ccCvvInput, ccCvv);
         clickOn(ConfirmOrder);
         checkText(text);
+    }
+
+    public void EmptyCart(){
+        clickOn(emptyBasket);
+        handleAlert();
 
     }
 }
