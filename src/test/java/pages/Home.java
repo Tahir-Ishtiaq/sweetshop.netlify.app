@@ -3,28 +3,38 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
+import pages.Sweets;
 public class Home extends BaseClass{
     public Home(WebDriver driver){
         super(driver);
     }
 
     @FindBy(xpath = "//a[@href='/sweets']")
-    WebElement sweets;
+    public WebElement sweets;
 
     @FindBy(xpath = "//a[@href='/about']")
-    WebElement about;
+    public WebElement about;
 
     @FindBy(xpath = "//a[@href='/login']")
-    WebElement login;
+    public WebElement login;
 
     @FindBy(xpath = "//a[@href='/basket']")
-    WebElement basket;
+    public WebElement basket;
 
-    public Sweets ClickOnSweets(){
+    @FindBy(xpath = "//a[@data-name= 'Chocolate Cups']")
+    public WebElement firstItem;
+
+    public <T extends BaseClass> T clickOnOption( Class<T> Class) {
         clickOn(sweets);
-        return new Sweets(driver);
+        return selectClass(Class);
     }
 
+    public <T extends BaseClass>T clickOnAnyItem(Class<T> Class){
+        //clickOn(Sweets.firstItem);
+        clickOn(firstItem);
+        clickOn(basket);
+        return selectClass(Class);
+
+    }
 
 }

@@ -50,6 +50,7 @@ public class BaseClass {
         try{
             WebElement element = wait.until(ExpectedConditions.visibilityOf(locator));
             logger.info("Providing input text: '{}'", input);
+            scrollToElement(element);
             prepareElement(element);
             element.clear();
             for (String letter : input.split("")) {
@@ -133,5 +134,15 @@ public class BaseClass {
         Assert.assertTrue(driver.getPageSource().contains(text),
                 "Expected text not found on page: " + text);
         logger.info("Text '{}' found", text);
+    }
+
+
+    public <T extends BaseClass> T selectClass( Class<T> pageClass) {
+        try {
+            return pageClass.getDeclaredConstructor(WebDriver.class).newInstance(this.driver);
+        } catch (Exception e) {
+            logger.error("Unable to navigate to page: " + pageClass.getSimpleName(), e);
+            throw new RuntimeException("Page instantiation failed: " + pageClass.getName(), e);
+        }
     }
 }
