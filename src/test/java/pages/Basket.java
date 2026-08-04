@@ -1,14 +1,20 @@
 package pages;
 
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+
 public class Basket extends BaseClass{
+    Home home = new Home(driver);
     public Basket(WebDriver driver){
         super(driver);
     }
+
+    @FindBy(xpath = "//strong[text()]")
+    public WebElement basketTotalElement;
+
     @FindBy(xpath = "//label[@for='firstName']/following-sibling::input")
     WebElement firstName;
 
@@ -61,6 +67,16 @@ public class Basket extends BaseClass{
     public void EmptyCart(){
         clickOn(emptyBasket);
         handleAlert();
+    }
 
+    public <T extends BaseClass>T orderWithoutDetails(Class<T> Class){
+        clickOn(ConfirmOrder);
+        checkText("Valid first name is required.");
+        return selectClass(Class);
+    }
+
+    public double getDisplayedTotal() {
+        String totalText = basketTotalElement.getText().replaceAll("[^0-9.]", "");
+        return Double.parseDouble(totalText);
     }
 }

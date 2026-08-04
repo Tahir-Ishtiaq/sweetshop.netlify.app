@@ -10,10 +10,10 @@ public class Sweets extends BaseClass{
     }
 
     @FindBy(xpath = "//a[@data-name= 'Chocolate Cups']")
-    public static WebElement firstItem;
+    public   WebElement firstItem;
 
     @FindBy(xpath = "//a[@data-name= 'Sherbert Straws']")
-    WebElement secondItem;
+    public  WebElement secondItem;
 
     @FindBy(xpath = "//a[@href='/basket']")
     WebElement baskit;

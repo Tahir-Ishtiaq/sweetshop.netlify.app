@@ -6,6 +6,7 @@ package testCases;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 
@@ -14,7 +15,7 @@ public class TestNG extends BeforeTest{
     private static final Logger logger =
             LoggerFactory.getLogger(TestNG.class);
 
-    @Test
+    @Test(priority = 1)
     public void AddAndCheck(){
         try{
             logger.info("Starting Testcase1 !!");
@@ -26,7 +27,7 @@ public class TestNG extends BeforeTest{
 
     }
 
-    @Test
+    @Test(priority = 2)
     public void OrderTheChocolate(){
         try{
             logger.info("Starting Testcase2 !!");
@@ -38,7 +39,7 @@ public class TestNG extends BeforeTest{
 
     }
 
-    @Test
+    @Test(priority = 3)
     public void AddAndRemove(){
         try{
             logger.info("Starting Testcase3 !!");
@@ -47,5 +48,38 @@ public class TestNG extends BeforeTest{
         }catch (Exception e){
             logger.error("TextCase3 FAILED !!", e);
         }
+    }
+
+    @Test(priority = 4)
+    public void orderWtihoutDetails(){
+        try{
+            logger.info("Starting Testcase4 !!");
+            home.clickOnAnyItem(Basket.class).orderWithoutDetails(Basket.class);
+            logger.info("Testcase4 Successfully Passed !!");
+        }catch (Exception e){
+            logger.error("TextCase4 FAILED !!", e);
+        }
+    }
+
+    @Test(priority = 5)
+    public void AddingItemsAmount() {
+        // 1. Get prices from Home page before navigating
+        double item1Price = home.getFirstItemPrice();
+        double item2Price = home.getSecondItemPrice();
+        double expectedTotal = item1Price + item2Price;
+        logger.info("The total is '{}'", expectedTotal);
+
+        // 2. Add items and navigate to Basket Page
+        Basket basketPage = home.clickOnAnyItem(Basket.class);
+
+        // 3. Verify basket total matched calculated price
+        double actualTotal = basketPage.getDisplayedTotal();
+        logger.info("The total is '{}'", actualTotal);
+        Assert.assertEquals(actualTotal, expectedTotal, 0.01, "Basket total mismatch!");
+    }
+
+    @Test(priority = 6)
+    public void GettingLogin(){
+        home.clickOnLogin(Login.class).GetLogin("fiveorders@sweetshop.local", "qwerty");
     }
 }
