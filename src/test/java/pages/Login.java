@@ -19,5 +19,13 @@ public class Login extends BaseClass{
         inputValue(email, user);
         inputValue(password, pass);
         clickOn(loginButton);
+        if(!(user == "fiveorders@sweetshop.local") || !(pass == "qwerty")){
+            checkText("Use one of the demo email addresses shown in the tooltip.");
+        }
+    }
+
+    public void ClickOnlogin(String text){
+        clickOn(loginButton);
+        checkText(text);
     }
 }

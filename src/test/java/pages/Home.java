@@ -21,6 +21,9 @@ public class Home extends BaseClass{
     @FindBy(xpath = "//a[@href='/basket']")
     public WebElement basket;
 
+    @FindBy(xpath = "//a[normalize-space()='Sweet Shop']")
+    public WebElement home;
+
     @FindBy(xpath = "//a[@data-name= 'Chocolate Cups']")
     public WebElement firstItem;
 
@@ -41,7 +44,7 @@ public class Home extends BaseClass{
         return getElementPrice(secondItem);
     }
 
-    public <T extends BaseClass> T clickOnOption( Class<T> Class) {
+    public <T extends BaseClass> T clickOnSweets(Class<T> Class) {
         clickOn(sweets);
         return selectClass(Class);
     }
@@ -60,5 +63,20 @@ public class Home extends BaseClass{
 
     }
 
+    public <T extends BaseClass>T clickOnAbout(Class<T> Class){
+        clickOn(about);
+        checkText("Sweet Shop Project");
+        return selectClass(Class);
+    }
+
+    public <T extends BaseClass>T clickAllOptions(Class<T> Class){
+        clickOnSweets(Sweets.class);
+        clickOnAbout(About.class);
+        clickOnLogin(Login.class);
+        clickOn(basket);
+        clickOn(home);
+        return selectClass(Class);
+
+    }
 
 }

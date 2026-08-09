@@ -19,7 +19,8 @@ public class TestNG extends BeforeTest{
     public void AddAndCheck(){
         try{
             logger.info("Starting Testcase1 !!");
-            home.clickOnOption(Sweets.class).clickOnItems(Basket.class);
+            home.clickOnSweets(Sweets.class)
+            .clickOnItems(Basket.class);
             logger.info("Testcase1 successfully Passed !!");
         }catch (Exception e){
             logger.error("TestCase1 FAILED!!", e);
@@ -31,7 +32,8 @@ public class TestNG extends BeforeTest{
     public void OrderTheChocolate(){
         try{
             logger.info("Starting Testcase2 !!");
-            home.clickOnAnyItem(Basket.class).placeOrder("Tahir", "Ishtiaq","user@test.com", "123 Street", "90210", "Tahir", "4000000000000000", "05/29", "999", "Thank you!");
+            home.clickOnAnyItem(Basket.class)
+            .placeOrder("Tahir", "Ishtiaq","user@test.com", "123 Street", "90210", "Tahir", "4000000000000000", "05/29", "999", "Thank you!");
             logger.info("Testcase2 Successfully Passed !!");
         } catch (Exception e){
             logger.error("TestCase2 FAILED!!", e);
@@ -43,7 +45,8 @@ public class TestNG extends BeforeTest{
     public void AddAndRemove(){
         try{
             logger.info("Starting Testcase3 !!");
-            home.clickOnOption(Sweets.class).clickOnItems(Basket.class).EmptyCart();
+            home.clickOnSweets(Sweets.class)
+            .clickOnItems(Basket.class).EmptyCart();
             logger.info("Testcase3 Successfully Passed !!");
         }catch (Exception e){
             logger.error("TextCase3 FAILED !!", e);
@@ -54,7 +57,8 @@ public class TestNG extends BeforeTest{
     public void orderWtihoutDetails(){
         try{
             logger.info("Starting Testcase4 !!");
-            home.clickOnAnyItem(Basket.class).orderWithoutDetails(Basket.class);
+            home.clickOnAnyItem(Basket.class)
+            .orderWithoutDetails(Basket.class);
             logger.info("Testcase4 Successfully Passed !!");
         }catch (Exception e){
             logger.error("TextCase4 FAILED !!", e);
@@ -80,6 +84,28 @@ public class TestNG extends BeforeTest{
 
     @Test(priority = 6)
     public void GettingLogin(){
-        home.clickOnLogin(Login.class).GetLogin("fiveorders@sweetshop.local", "qwerty");
+        home.clickOnLogin(Login.class)
+        .GetLogin("fiveorders@sweetshop.local", "qwerty");
+    }
+
+    @Test(priority = 7)
+    public void LoginWithoutCreds(){
+        home.clickOnLogin(Login.class)
+        .ClickOnlogin("Use one of the demo email addresses shown in the tooltip.");
+    }
+
+    @Test(priority = 8)
+    public void LoginWithIncorrectEmail(){
+        home.clickOnLogin(Login.class).GetLogin("fiveorders@user.local", "qwerty");
+    }
+
+    @Test(priority = 9)
+    public void ClickOnAbout(){
+        home.clickOnAbout(About.class);
+    }
+
+    @Test(priority = 10)
+    public void CheckAllPages(){
+        home.clickAllOptions(Home.class);
     }
 }
